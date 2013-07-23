@@ -22,16 +22,10 @@
 					height: 100px;
 					background: gray;
 				}
-				.derpy {
+				#derpy {
 					position: absolute;
-					visibility: hidden;
 					width: 600px;
 					height: 464px;
-				}
-				#derpy_open {
-					background-image: url('open.png');
-				}
-				#derpy_close {
 					background-image: url('open.png');
 				}
 				.muffin {
@@ -61,28 +55,43 @@
 		</head>
 		<body id="theBody">
 		<script type="text/javascript">
-		
-				var d_open_frame_timing = [60, 60, 60];
 				
-				var nextframe = function(the_div, frame, frame_timing) {
+				var ih = 464;
+				var iw = 600;
+				
+				var d_open_frames = {
+					timing: [60, 60, 60],
+					coords: [[0, 4*ih], [0, 3*ih], [0, 2*ih], [0, ih]]
+				}
+				
+				var d_close_frames = {
+					timing: [60, 60, 60],
+					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]]
+				}
+				
+				var ani_timeout_id;
+				
+				var nextframe = function(the_div, frame, frame_timing, frame_coords) {
 					console.log("frame: " + frame);
 					console.log(the_div);
 					console.log("frame_timing: " + frame_timing);
-					the_div.style['background-position-y'] = (1856 - (464 * frame)) + "px";
+					console.log("frame coords: " + frame_coords);
+					the_div.style['background-position'] = frame_coords[frame][0] + "px " + frame_coords[frame][1] + "px";
 					
 					if (frame >= frame_timing.length) {
 						animating = false;
 					} else {
-						setTimeout(nextframe, frame_timing[frame], the_div, frame + 1, frame_timing);
+						ani_timeout_id = setTimeout(nextframe, frame_timing[frame], the_div, frame + 1, frame_timing, frame_coords);
 					}
 				}
 				
-				var animate = function(div_id, frame_timing){
-					var ani_div = document.getElementById(div_id);
+				// Div to animate, frame timing list, 
+				var animate = function(the_div, frame_timing, frame_coords){
+					window.clearTimeout(ani_timeout_id);
 					console.log("animate");
 					img_open_frame = 0;
-					ani_div.style['background-position-y'] = "0px";
-					img_open_interval = window.setTimeout(nextframe, 0, ani_div, 0, frame_timing);
+					the_div.style['background-position-y'] = "0px";
+					nextframe(the_div, 0, frame_timing, frame_coords);
 				}
 				
 				var newmuffin = function() {
@@ -115,10 +124,9 @@
 				var d_open = function() {
 					if (muffin_count == 0 && !open) {
 						console.log("open");
-						
-						document.getElementById("derpy_open").style.visibility = "visible";
 
-						animate("derpy_open", d_open_frame_timing);
+						var the_div = document.getElementById("derpy");
+						animate(the_div, d_open_frames.timing, d_open_frames.coords);
 						
 						clear();
 						open = true;
@@ -128,11 +136,9 @@
 				var d_close = function() {
 					if (muffin_count == 0 && open && !closechew) {
 						
-						var derpy = document.getElementById("derpy");
-						derpy.parentNode.removeChild(derpy);
-						document.getElementById("perch").appendChild(img_close);
+						var the_div = document.getElementById("derpy");
+						animate(the_div, d_close_frames.timing, d_close_frames.coords);
 						
-						window.setTimeout(d_idle, 500);
 						clear();
 						closed = true;
 					}
@@ -141,11 +147,6 @@
 				var d_closechew = function() {
 					if (muffin_count == 0 && !idle) {
 						
-						var derpy = document.getElementById("derpy");
-						derpy.parentNode.removeChild(derpy);
-						document.getElementById("perch").appendChild(img_closechew);
-						
-						window.setTimeout(d_idle, 500);
 						clear();
 						closechew = true;
 					}
@@ -153,11 +154,7 @@
 				
 				var d_idle = function() {
 					if (muffin_count == 0 && !open) {
-						
-						var derpy = document.getElementById("derpy");
-						derpy.parentNode.removeChild(derpy);
-						document.getElementById("perch").appendChild(img_idle);
-						
+					
 						clear();
 						idle = true;
 					}
@@ -172,7 +169,6 @@
 					this.img.style.left = window.innerWidth / 2 - this.img.width / 2 + "px";
 					this.img.style.top = "50px";
 					document.getElementById("theBody").appendChild(this.img);
-					//document.getElementsByClassName('muffin')[0].style['left'] = window.innerWidth / 2 - muffin_img.width / 2 + "px";
 					
 					this.position = muffin_img.offsetTop;
 					this.speed = 0;
@@ -201,8 +197,7 @@
 			<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
 			<div id="outer">
 				<div id="perch">
-					<div id="derpy_open" class="derpy"></div>
-					<div id="derpy_close" class="derpy"></div>
+					<div id="derpy"></div>
 				</div>
 			</div>
 		</body>
