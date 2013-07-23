@@ -23,10 +23,15 @@
 					background: gray;
 				}
 				.derpy {
+					position: absolute;
+					visibility: hidden;
 					width: 600px;
 					height: 464px;
 				}
 				#derpy_open {
+					background-image: url('open.png');
+				}
+				#derpy_close {
 					background-image: url('open.png');
 				}
 				.muffin {
@@ -44,6 +49,7 @@
 					bottom: 0px;
 				}
 				#perch {
+					position: relative;
 					padding-left: 50px;
 					margin-left: auto;
 					margin-right: auto;
@@ -55,45 +61,29 @@
 		</head>
 		<body id="theBody">
 		<script type="text/javascript">
-				var img_open;
-				window.onload = function(){
-					img_open = document.getElementById("derpy_open");
+		
+				var d_open_frame_timing = [60, 60, 60];
+				
+				var nextframe = function(the_div, frame, frame_timing) {
+					console.log("frame: " + frame);
+					console.log(the_div);
+					console.log("frame_timing: " + frame_timing);
+					the_div.style['background-position-y'] = (1856 - (464 * frame)) + "px";
+					
+					if (frame >= frame_timing.length) {
+						animating = false;
+					} else {
+						setTimeout(nextframe, frame_timing[frame], the_div, frame + 1, frame_timing);
+					}
 				}
 				
-				function open_func(){};
-				
-				open_func.nextframe = function() {
-					open_func.img_open_frame++;
-					console.log("frame: " + open_func.img_open_frame);
-					if (open_func.img_open_frame == 3) window.clearInterval(open_func.img_open_interval);
-					img_open.style['background-position'] = "0px " + (1856 - (464 * open_func.img_open_frame)) + "px";
-				}
-				
-				open_func.animate = function() {
-					document.getElementById("derpy_open").style.visibility = "visible";
+				var animate = function(div_id, frame_timing){
+					var ani_div = document.getElementById(div_id);
 					console.log("animate");
-					open_func.img_open_frame = 0;
-					img_open.style['background-position'] = "0px 0px";
-					this.img_open_interval = window.setInterval(open_func.nextframe, 60);
+					img_open_frame = 0;
+					ani_div.style['background-position-y'] = "0px";
+					img_open_interval = window.setTimeout(nextframe, 0, ani_div, 0, frame_timing);
 				}
-				
-				var img_close = new Image();
-				img_close.src = "close.gif";
-				img_close.id = "derpy";
-				img_close.width = "600";
-				img_close.height = "464";
-				
-				var img_closechew = new Image();
-				img_closechew.src = "closechew.gif";
-				img_closechew.id = "derpy";
-				img_closechew.width = "600";
-				img_closechew.height = "464";
-				
-				var img_idle = new Image();
-				img_idle.src = "idle.gif";
-				img_idle.id = "derpy";
-				img_idle.width = "600";
-				img_idle.height = "464";
 				
 				var newmuffin = function() {
 					muffin_img = document.createElement("img");
@@ -126,7 +116,9 @@
 					if (muffin_count == 0 && !open) {
 						console.log("open");
 						
-						open_func.animate();
+						document.getElementById("derpy_open").style.visibility = "visible";
+
+						animate("derpy_open", d_open_frame_timing);
 						
 						clear();
 						open = true;
@@ -210,6 +202,7 @@
 			<div id="outer">
 				<div id="perch">
 					<div id="derpy_open" class="derpy"></div>
+					<div id="derpy_close" class="derpy"></div>
 				</div>
 			</div>
 		</body>
