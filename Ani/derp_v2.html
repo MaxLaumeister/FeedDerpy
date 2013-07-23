@@ -26,7 +26,8 @@
 					position: absolute;
 					width: 600px;
 					height: 464px;
-					background-image: url('open.png');
+					background-image: url('sprite.png');
+					background-position-y: 1856px;
 				}
 				.muffin {
 					position: absolute;
@@ -67,6 +68,11 @@
 				var d_close_frames = {
 					timing: [60, 60, 60],
 					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]]
+				}
+				
+				var d_closechew_frames = {
+					timing: [60, 60, 60, 100, 100, 100],
+					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]]
 				}
 				
 				var ani_timeout_id;
@@ -146,6 +152,9 @@
 				
 				var d_closechew = function() {
 					if (muffin_count == 0 && !idle) {
+						
+						var the_div = document.getElementById("derpy");
+						animate(the_div, d_closechew_frames.timing, d_closechew_frames.coords);
 						
 						clear();
 						closechew = true;
