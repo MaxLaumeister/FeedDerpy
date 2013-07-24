@@ -4,7 +4,6 @@
 			<meta charset="utf-8" />
 			<title>Feed Derpy!</title>
 			<style>
-				#preload { background: url(muffin.png) no-repeat -9999px -9999px; }
 				body {
 					position: absolute;
 					margin: 0;
@@ -14,8 +13,6 @@
 				}
 				#muffinbutton {
 					top: 50px;
-				}
-				#muffinbutton {
 					position: relative;
 					margin-left: auto;
 					margin-right: auto;
@@ -37,6 +34,7 @@
 					display: block;
 					margin-left: auto;
 					margin-right: auto;
+					background-image: url('muffin.png');
 				}
 				#outer {
 					position: absolute;
@@ -120,10 +118,7 @@
 				}
 				
 				var newmuffin = function() {
-					muffin_img = document.createElement("img");
-					muffin_img.src = "muffin.png";
-					muffin_img.width = "100";
-					muffin_img.height = "86";
+					muffin_img = document.createElement("div");
 					muffin_img.className = "muffin";
 					return muffin_img;
 				}
@@ -195,12 +190,12 @@
 					
 					muffin_count += 1;
 					
-					this.img = newmuffin();
-					this.img.style.left = window.innerWidth / 2 - this.img.width / 2 + "px";
-					this.img.style.top = "50px";
-					document.getElementById("theBody").appendChild(this.img);
+					this.div = newmuffin();
+					this.div.style.left = window.innerWidth / 2 - 50 + "px";
+					this.div.style.top = "50px";
+					document.getElementById("theBody").appendChild(this.div);
 					
-					this.position = muffin_img.offsetTop;
+					this.position = this.div.offsetTop;
 					this.speed = 0;
 					this.acceleration = 1;
 					
@@ -209,11 +204,11 @@
 					this.update = function() {
 						self.speed += self.acceleration;
 						self.position += self.speed;
-						self.img.style.top = self.position + "px";
+						self.div.style.top = self.position + "px";
 						
 						if (self.position > window.innerHeight - 350) {
 							window.clearInterval(self.interval);
-							document.getElementById("theBody").removeChild(self.img);
+							document.getElementById("theBody").removeChild(self.div);
 							muffin_count -= 1;
 							d_closechew();
 						}
@@ -224,7 +219,7 @@
 				
 				
 			</script>
-			<div id="preload"></div>
+			<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
 			<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
 			<div id="outer">
 				<div id="perch">
