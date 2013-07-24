@@ -56,48 +56,66 @@
 		</head>
 		<body id="theBody">
 		<script type="text/javascript">
+		
+				window.onload = function() {
+					d_idle();
+				}
 				
 				var ih = 464;
 				var iw = 600;
 				
+				var d_idle_frames = {
+					timing: [4000, 50, 50, 50, 50],
+					coords: [[0, 4*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih]],
+					loop: true,
+					callback: false
+				}
+				
 				var d_open_frames = {
-					timing: [60, 60, 60],
-					coords: [[0, 4*ih], [0, 3*ih], [0, 2*ih], [0, ih]]
+					timing: [60, 60, 60, 60],
+					coords: [[0, 4*ih], [0, 3*ih], [0, 2*ih], [0, ih]],
+					loop: false,
+					callback: false
 				}
 				
 				var d_close_frames = {
-					timing: [60, 60, 60],
-					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]]
+					timing: [60, 60, 60, 60],
+					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]],
+					loop: false,
+					callback: true,
+					callback_func: function(){animate(document.getElementById("derpy"), d_idle_frames);}
 				}
 				
 				var d_closechew_frames = {
-					timing: [60, 60, 60, 100, 100, 100],
-					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]]
+					timing: [60, 60, 60, 100, 100, 100, 100],
+					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]],
+					loop: false,
+					callback: true,
+					callback_func: function(){animate(document.getElementById("derpy"), d_idle_frames);}
 				}
 				
 				var ani_timeout_id;
 				
-				var nextframe = function(the_div, frame, frame_timing, frame_coords) {
-					console.log("frame: " + frame);
-					console.log(the_div);
-					console.log("frame_timing: " + frame_timing);
-					console.log("frame coords: " + frame_coords);
-					the_div.style['background-position'] = frame_coords[frame][0] + "px " + frame_coords[frame][1] + "px";
+				var nextframe = function(the_div, frame, frame_descriptor) {
+					the_div.style['background-position'] = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
 					
-					if (frame >= frame_timing.length) {
+					if (frame + 1 >= frame_descriptor.timing.length) {
 						animating = false;
+						// For a cascading (callback) animation
+						if(frame_descriptor.callback) frame_descriptor.callback_func();
+						// For a looping animation
+						if (frame_descriptor.loop) setTimeout(nextframe, frame_descriptor.timing[frame], the_div, 0, frame_descriptor)
 					} else {
-						ani_timeout_id = setTimeout(nextframe, frame_timing[frame], the_div, frame + 1, frame_timing, frame_coords);
+						ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, frame + 1, frame_descriptor);
 					}
 				}
 				
 				// Div to animate, frame timing list, 
-				var animate = function(the_div, frame_timing, frame_coords){
+				var animate = function(the_div, frame_descriptor){
 					window.clearTimeout(ani_timeout_id);
-					console.log("animate");
 					img_open_frame = 0;
 					the_div.style['background-position-y'] = "0px";
-					nextframe(the_div, 0, frame_timing, frame_coords);
+					nextframe(the_div, 0, frame_descriptor);
 				}
 				
 				var newmuffin = function() {
@@ -129,10 +147,9 @@
 				
 				var d_open = function() {
 					if (muffin_count == 0 && !open) {
-						console.log("open");
 
 						var the_div = document.getElementById("derpy");
-						animate(the_div, d_open_frames.timing, d_open_frames.coords);
+						animate(the_div, d_open_frames);
 						
 						clear();
 						open = true;
@@ -143,7 +160,7 @@
 					if (muffin_count == 0 && open && !closechew) {
 						
 						var the_div = document.getElementById("derpy");
-						animate(the_div, d_close_frames.timing, d_close_frames.coords);
+						animate(the_div, d_close_frames);
 						
 						clear();
 						closed = true;
@@ -154,7 +171,7 @@
 					if (muffin_count == 0 && !idle) {
 						
 						var the_div = document.getElementById("derpy");
-						animate(the_div, d_closechew_frames.timing, d_closechew_frames.coords);
+						animate(the_div, d_closechew_frames);
 						
 						clear();
 						closechew = true;
@@ -163,6 +180,9 @@
 				
 				var d_idle = function() {
 					if (muffin_count == 0 && !open) {
+					
+						var the_div = document.getElementById("derpy");
+						animate(the_div, d_idle_frames);
 					
 						clear();
 						idle = true;
