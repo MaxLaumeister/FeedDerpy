@@ -27,7 +27,7 @@
 					width: 600px;
 					height: 464px;
 					background-image: url('sprite.png');
-					background-position-y: 1856px;
+					background-position: 0 1856px;
 				}
 				.muffin {
 					position: absolute;
@@ -100,7 +100,7 @@
 				var ani_timeout_id;
 				
 				var nextframe = function(the_div, frame, frame_descriptor) {
-					the_div.style['background-position'] = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
+					the_div.style.backgroundPosition = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
 					
 					if (frame + 1 >= frame_descriptor.timing.length) {
 						animating = false;
@@ -117,7 +117,6 @@
 				var animate = function(the_div, frame_descriptor){
 					window.clearTimeout(ani_timeout_id);
 					img_open_frame = 0;
-					the_div.style['background-position-y'] = "0px";
 					nextframe(the_div, 0, frame_descriptor);
 				}
 				
