@@ -4,11 +4,14 @@
 			<meta charset="utf-8" />
 			<title>Feed Derpy!</title>
 			<style>
+				html, body {
+					overflow: hidden;
+					height: 100%
+				}
 				body {
 					position: absolute;
 					margin: 0;
 					width: 100%;
-					height: 100%;
 					overflow: hidden;
 				}
 				#muffinbutton {
@@ -41,9 +44,10 @@
 				}
 				#outer {
 					position: absolute;
+					overflow: hidden;
 					width: 100%;
-					height: 464px;
-					bottom: -20px;
+					height: 420px;
+					bottom: 80px;
 				}
 				#perch {
 					position: relative;
@@ -51,8 +55,32 @@
 					margin-left: auto;
 					margin-right: auto;
 					width: 600px;
-					height: 464px;
 					z-index: 1;
+				}
+				.wrapper {
+					position: absolute;
+					width: 100%;
+					background-color: black;
+					text-align: center;
+					color: white;
+					font-family:Arial, Helvetica, sans-serif;
+				}
+				#header {
+					top: 0;
+					padding: 10px;
+					z-index: 4;
+				}
+				#footer {
+					bottom: 0;
+					height: 115px;
+				}
+				#footerinner {
+					position: absolute;
+					bottom: 10px;
+					left: 0;
+					right: 0;
+					margin-left: auto;
+					margin-right: auto;
 				}
 			</style>
 			
@@ -209,7 +237,7 @@
 						self.position += self.speed;
 						self.div.style.top = self.position + "px";
 						
-						if (self.position > window.innerHeight - 350) {
+						if (self.position > window.innerHeight - 390) {
 							window.clearInterval(self.interval);
 							document.getElementById("theBody").removeChild(self.div);
 							muffin_count -= 1;
@@ -218,10 +246,8 @@
 					}
 					this.interval = window.setInterval(this.update, 25);
 				}
-				
-				
-				
 			</script>
+			<div id="header" class="wrapper"><img style="display: block; margin-left: auto; margin-right: auto;" src="logo.png" alt="FeedDerpy.com"></div>
 			<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
 			<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
 			<div id="outer">
@@ -229,5 +255,28 @@
 					<div id="derpy"></div>
 				</div>
 			</div>
+			<div id="footer" class="wrapper"><div id="footerinner">Feed the Developer!<br />Paypal: <form style="position: relative; display: inline-block; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="5UJBBCQ7QV37U">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+Bitcoin: <script src="http://coinwidget.com/widget/coin.js"></script>
+<script>
+CoinWidgetCom.go({
+	wallet_address: "15TfQqrE3vhJeDXhbM8TUQFYEF4Ujvgwky"
+	, currency: "bitcoin"
+	, counter: "hide"
+	, alignment: "ac"
+	, qrcode: true
+	, auto_show: false
+	, lbl_button: "Donate"
+	, lbl_address: "My Bitcoin Address:"
+	, lbl_count: "donations"
+	, lbl_amount: "BTC"
+});
+</script>
+
+</div></div>
 		</body>
 	</html>
