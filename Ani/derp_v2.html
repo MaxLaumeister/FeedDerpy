@@ -12,13 +12,15 @@
 					overflow: hidden;
 				}
 				#muffinbutton {
-					top: 50px;
+					top: 30px;
 					position: relative;
 					margin-left: auto;
 					margin-right: auto;
 					width: 200px;
-					height: 100px;
-					background: gray;
+					height: 209px;
+					background-image: url('basket.png');
+					z-index: 3;
+					cursor: pointer;
 				}
 				#derpy {
 					position: absolute;
@@ -35,20 +37,22 @@
 					margin-left: auto;
 					margin-right: auto;
 					background-image: url('muffin.png');
+					z-index: 2;
 				}
 				#outer {
 					position: absolute;
 					width: 100%;
 					height: 464px;
-					bottom: 0px;
+					bottom: -20px;
 				}
 				#perch {
 					position: relative;
-					padding-left: 50px;
+					padding-left: 75px;
 					margin-left: auto;
 					margin-right: auto;
 					width: 600px;
 					height: 464px;
+					z-index: 1;
 				}
 			</style>
 			
@@ -192,7 +196,7 @@
 					
 					this.div = newmuffin();
 					this.div.style.left = window.innerWidth / 2 - 50 + "px";
-					this.div.style.top = "50px";
+					this.div.style.top = "110px";
 					document.getElementById("theBody").appendChild(this.div);
 					
 					this.position = this.div.offsetTop;
