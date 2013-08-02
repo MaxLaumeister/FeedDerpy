@@ -2,7 +2,7 @@
 	<html lang="en">
 		<head>
 			<meta charset="utf-8" />
-			<title>Feed Derpy!</title>
+			<title>FeedDerpy.com</title>
 			<style>
 				html, body {
 					overflow: hidden;
@@ -247,7 +247,9 @@
 					this.interval = window.setInterval(this.update, 25);
 				}
 			</script>
-			<div id="header" class="wrapper"><img style="display: block; margin-left: auto; margin-right: auto;" src="logo.png" alt="FeedDerpy.com"></div>
+			<div id="header" class="wrapper">
+				<img style="display: block; margin-left: auto; margin-right: auto;" src="logo.png" alt="FeedDerpy.com" height="50" width="347">
+			</div>
 			<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
 			<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
 			<div id="outer">
@@ -255,28 +257,34 @@
 					<div id="derpy"></div>
 				</div>
 			</div>
-			<div id="footer" class="wrapper"><div id="footerinner">Feed the Developer!<br />Paypal: <form style="position: relative; display: inline-block; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="5UJBBCQ7QV37U">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
-Bitcoin: <script src="http://coinwidget.com/widget/coin.js"></script>
-<script>
-CoinWidgetCom.go({
-	wallet_address: "15TfQqrE3vhJeDXhbM8TUQFYEF4Ujvgwky"
-	, currency: "bitcoin"
-	, counter: "hide"
-	, alignment: "ac"
-	, qrcode: true
-	, auto_show: false
-	, lbl_button: "Donate"
-	, lbl_address: "My Bitcoin Address:"
-	, lbl_count: "donations"
-	, lbl_amount: "BTC"
-});
-</script>
-
-</div></div>
+			<div id="footer" class="wrapper">
+				<div id="footerinner">
+					Feed the Developer! &bull; Site by Maximillian Laumeister
+					<br />
+					Paypal: 
+					<form style="position: relative; display: inline-block; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="hosted_button_id" value="5UJBBCQ7QV37U">
+						<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+					</form>
+					Bitcoin: 
+					<script src="coinwidget/coin.js"></script>
+					<script>
+					CoinWidgetCom.go({
+						wallet_address: "15TfQqrE3vhJeDXhbM8TUQFYEF4Ujvgwky"
+						, currency: "bitcoin"
+						, counter: "hide"
+						, alignment: "ac"
+						, qrcode: true
+						, auto_show: false
+						, lbl_button: "Donate"
+						, lbl_address: "My Bitcoin Address:"
+						, lbl_count: "donations"
+						, lbl_amount: "BTC"
+					});
+					</script>
+				</div>
+			</div>
 		</body>
 	</html>
