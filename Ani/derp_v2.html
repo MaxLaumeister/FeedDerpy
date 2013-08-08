@@ -3,7 +3,7 @@
 		<head>
 			<meta charset="utf-8" />
 			<title>FeedDerpy.com</title>
-			<meta name="description" content="Feed Derpy Hooves pony with Muffins!">
+			<meta name="description" content="Derpy Hooves is hungry for muffins! Click on the muffin basket to feed her!">
 			<meta name="keywords" content="Derpy Hooves, Feed Derpy, My Little Pony, MLP, Muffin">
 			<meta name="author" content="Maximillian Laumeister">
 			<style>
@@ -26,6 +26,7 @@
 					min-height: 710px;
 				}
 				#muffinbutton {
+					display: none;
 					top: 30px;
 					position: relative;
 					margin-left: auto;
@@ -54,6 +55,7 @@
 					z-index: 2;
 				}
 				#outer {
+					display: none;
 					position: absolute;
 					overflow: hidden;
 					width: 100%;
@@ -69,12 +71,12 @@
 					z-index: 1;
 				}
 				.wrapper {
+					color: white;
 					position: absolute;
 					box-sizing: border-box;
 					width: 100%;
 					background-color: black;
 					text-align: center;
-					color: white;
 					font-family:Arial, Helvetica, sans-serif;
 				}
 				#header {
@@ -102,6 +104,10 @@
 					bottom: 0;
 					margin-bottom: 20px;
 					z-index: 6;
+				}
+				#noscript {
+					color: red;
+					font-size: 2em;
 				}
 			</style>
 			<!--<script>
@@ -279,55 +285,66 @@
 				}
 			</script>
 			<div id="pagecontainer">
-			<div id="header" class="wrapper">
-				<img style="display: block; margin-left: auto; margin-right: auto;" src="logo.png" alt="FeedDerpy.com" height="50" width="347">
-			</div>
-			<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
-			<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
-			<div id="outer">
-				<div id="perch">
-					<div id="derpy"></div>
-				</div>
-			</div>
-			<div id="footer" class="wrapper">
-				<!--<div id="adsense">
-					<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<ins class="adsbygoogle"
-						 style="display:inline-block;width:234px;height:60px"
-						 data-ad-client="ca-pub-0997103794735619"
-						 data-ad-slot="7606234438"></ins>
-					<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
-				</div>-->
-				<div id="footerinner">
-					Feed the Developer! &bull; Site by Maximillian Laumeister
-					<br />
-					Paypal: 
-					<form style="position: relative; display: inline-block; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-						<input type="hidden" name="cmd" value="_s-xclick">
-						<input type="hidden" name="hosted_button_id" value="5UJBBCQ7QV37U">
-						<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-					</form>
-					Bitcoin: 
-					<script src="coinwidget/coin.js"></script>
-					<script>
-					CoinWidgetCom.go({
-						wallet_address: "1derpMLE7Eh26LTFEA3epp1eAgMUcYj7j"
-						, currency: "bitcoin"
-						, counter: "hide"
-						, alignment: "ac"
-						, qrcode: true
-						, auto_show: false
-						, lbl_button: "Donate"
-						, lbl_address: "My Bitcoin Address:"
-						, lbl_count: "donations"
-						, lbl_amount: "BTC"
-					});
+				<div id="header" class="wrapper">
+					<img style="display: block; margin-left: auto; margin-right: auto;" src="logo.png" alt="FeedDerpy.com" height="50" width="347">
+					<div id="noscript">
+					<!-- JavaScript is disabled -->
+					<p>This site requires JavaScript support!</p>
+					</div>
+					<script type="text/javascript">
+						document.getElementById('noscript').style.display = 'none';
 					</script>
 				</div>
-			</div>
+				<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
+				<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
+				<div id="outer">
+					<div id="perch">
+						<div id="derpy"></div>
+					</div>
+				</div>
+				<script type="text/javascript">
+					document.getElementById('muffinbutton').style.display = 'block';
+					document.getElementById('outer').style.display = 'block';
+				</script>
+				<div id="footer" class="wrapper">
+					<!--<div id="adsense">
+						<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<ins class="adsbygoogle"
+							 style="display:inline-block;width:234px;height:60px"
+							 data-ad-client="ca-pub-0997103794735619"
+							 data-ad-slot="7606234438"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>-->
+					<div id="footerinner">
+						Feed the Developer! &bull; Site by Maximillian Laumeister
+						<br />
+						Paypal: 
+						<form style="position: relative; display: inline-block; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+							<input type="hidden" name="cmd" value="_s-xclick">
+							<input type="hidden" name="hosted_button_id" value="5UJBBCQ7QV37U">
+							<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+							<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+						</form>
+						Bitcoin: 
+						<script src="coinwidget/coin.js"></script>
+						<script>
+						CoinWidgetCom.go({
+							wallet_address: "1derpMLE7Eh26LTFEA3epp1eAgMUcYj7j"
+							, currency: "bitcoin"
+							, counter: "hide"
+							, alignment: "ac"
+							, qrcode: true
+							, auto_show: false
+							, lbl_button: "Donate"
+							, lbl_address: "My Bitcoin Address:"
+							, lbl_count: "donations"
+							, lbl_amount: "BTC"
+						});
+						</script>
+					</div>
+				</div>
 			</div>
 		</body>
 	</html>
