@@ -248,6 +248,8 @@
 				var muffin = function() {
 					d_open();
 					
+					var pageContainer = document.getElementById("pagecontainer");
+					
 					muffin_count += 1;
 					
 					this.div = newmuffin();
@@ -266,7 +268,7 @@
 						self.position += self.speed;
 						self.div.style.top = self.position + "px";
 						
-						if (self.position > window.innerHeight - 390) {
+						if (self.position > pageContainer.clientHeight - 390) {
 							window.clearInterval(self.interval);
 							document.getElementById("theBody").removeChild(self.div);
 							muffin_count -= 1;
