@@ -203,7 +203,15 @@
 					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]],
 					loop: false,
 					callback: true,
-					callback_func: function(){animate(document.getElementById("derpy"), d_idle_frames);}
+					callback_func: function(){d_idle();}
+				}
+				
+				var d_praise_frames = {
+					timing: [100, 1200, 100],
+					coords: [[0, 4*ih], [0, 10*ih], [0, 4*ih]],
+					loop: false,
+					callback: true,
+					callback_func: function(){d_idle();}
 				}
 				
 				var d_closechew_frames = {
@@ -211,7 +219,7 @@
 					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]],
 					loop: false,
 					callback: true,
-					callback_func: function(){animate(document.getElementById("derpy"), d_idle_frames);}
+					callback_func: function(){d_praise();}
 				}
 				
 				var ani_timeout_id;
@@ -249,12 +257,14 @@
 				var closed = false;
 				var closechew = false;
 				var idle = false;
+				var praise = false;
 				
 				var clear = function() {
 					open = false;
 					closed = false;
 					closechew = false;
 					idle = false;
+					praise = false;
 				}
 				
 				var busy = function() {
@@ -267,6 +277,8 @@
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_open_frames);
 						
+						//console.log("open");
+						
 						clear();
 						open = true;
 					}
@@ -277,6 +289,8 @@
 						
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_close_frames);
+						
+						//console.log("close");
 						
 						clear();
 						closed = true;
@@ -289,6 +303,8 @@
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_closechew_frames);
 						
+						//console.log("closechew");
+						
 						clear();
 						closechew = true;
 					}
@@ -299,9 +315,24 @@
 					
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_idle_frames);
+						
+						//console.log("idle");
 					
 						clear();
 						idle = true;
+					}
+				}
+				
+				var d_praise = function() {
+					if (muffin_count == 0 && !open) {
+					
+						var the_div = document.getElementById("derpy");
+						animate(the_div, d_praise_frames);
+						
+						//console.log("praise");
+					
+						clear();
+						praise = true;
 					}
 				}
 				
@@ -353,7 +384,7 @@
 				</div>
 				<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
 				<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
-				<p id="clicktofeed" class="triangle-isosceles top"><span style="font-weight: bold;">Click to drop muffins!</span></p>
+				<p id="clicktofeed" class="triangle-isosceles top"><span style="font-weight: bold;">Click the basket!</span></p>
 				<div id="outer">
 					<div id="perch">
 						<div id="derpy"></div>
