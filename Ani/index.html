@@ -111,6 +111,40 @@
 					color: red;
 					font-size: 2em;
 				}
+				#show_thanks {
+					position: absolute;
+					right: 20px;
+					bottom: 0;
+					margin-bottom: 20px;
+					z-index: 6;
+				}
+				#thanks {
+					position: absolute;
+					background-color: black;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					opacity:0.4;
+					filter:alpha(opacity=40); /* For IE8 and earlier */
+					z-index: 20;
+				}
+				#thanksinner {
+					box-sizing: border-box;
+					position: absolute;
+					width: 500px;
+					height: 440px;
+					background-color: black;
+					left: 50%;
+					top: 50%;
+					margin: -220px 0 0 -250px;
+					padding: 30px;
+					color: white;
+					z-index: 21;
+				}
+				#thanksinner a {
+					color: white;
+				}
 				/* Speech bubble code snippet by Nicolas Gallagher. */
 				/* More info, and license: http://nicolasgallagher.com/pure-css-speech-bubbles/demo/default.css */
 				.triangle-isosceles {
@@ -370,6 +404,16 @@
 					}
 					this.interval = window.setInterval(this.update, 25);
 				}
+				
+				var thanks_open = function() {
+					document.getElementById("thanks").style.display = 'block';
+					document.getElementById("thanksinner").style.display = 'block';
+				}
+				
+				var thanks_close = function() {
+					document.getElementById("thanks").style.display = 'none';
+					document.getElementById("thanksinner").style.display = 'none';
+				}
 			</script>
 			<div id="pagecontainer">
 				<div id="header" class="wrapper">
@@ -432,7 +476,21 @@
 							, lbl_amount: "BTC"
 						});
 						</script>
+						<div id="show_thanks"><span style="cursor: pointer; text-decoration: underline;" onclick="thanks_open();">Special Thanks</span></div>
 					</div>
+				</div>
+				<div id="thanks" onclick="thanks_close();">
+				</div>
+				<div id="thanksinner">
+					<h1>Special Thanks</h1>
+					<p><a href="http://flamingorich.deviantart.com/" target="_blank">Zachary Rich</a>, for the MLP Flash puppet base.</p>
+					<p><a href="http://dileak.deviantart.com/art/DR-Derpy-Puppet-Rigs-v1-0-353205343" target="_blank">DILeak</a>, for the Derpy Hooves flash puppet variant.</p>
+					<p><a href="http://nicolasgallagher.com/pure-css-speech-bubbles/" target="_blank">Nicolas Gallagher</a>, for the code for the &ldquo;Click the Basket&rdquo; button.</p>
+					<p><a href="http://birthofthepheonix.deviantart.com/art/Bitter-Sweet-Derpy-355016472" target="_blank">Birthofthephoenix</a> for the Derpy Hooves sitting vector.</p>
+					<p><a href="http://aman692.deviantart.com/art/Derpy-s-Muffin-Vector-295354471" target="_blank">Aman692</a> for the delicious muffin vector.</p>
+					<p><a href="http://coinwidget.com/" target="_blank">Scotty</a> for the Bitcoin donation widget.</p>
+					<p style="color: yellow;">FeedDerpy.com is not affiliated with Hasbro Inc.</p>
+					<div style="width: 440px; position: absolute; bottom: 0; text-align: center;"><p>(Click outside to close)</p></div>
 				</div>
 			</div>
 		</body>
