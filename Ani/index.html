@@ -267,11 +267,10 @@
 					the_div.style.backgroundPosition = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
 					
 					if (frame + 1 >= frame_descriptor.timing.length) {
-						animating = false;
 						// For a cascading (callback) animation
 						if(frame_descriptor.callback) frame_descriptor.callback_func();
 						// For a looping animation
-						if (frame_descriptor.loop) setTimeout(nextframe, frame_descriptor.timing[frame], the_div, 0, frame_descriptor)
+						if (frame_descriptor.loop) ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, 0, frame_descriptor);
 					} else {
 						ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, frame + 1, frame_descriptor);
 					}
@@ -307,16 +306,16 @@
 				}
 				
 				var busy = function() {
-					return (open || closed || closechew);
+					return (open || closed || closechew || praise);
 				}
 				
 				var d_open = function() {
-					if (muffin_count == 0 && !open) {
+					if (muffin_count == 0 && !open && !closechew) {
 
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_open_frames);
 						
-						//console.log("open");
+						console.log("open");
 						
 						clear();
 						open = true;
@@ -329,7 +328,7 @@
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_close_frames);
 						
-						//console.log("close");
+						console.log("close");
 						
 						clear();
 						closed = true;
@@ -337,12 +336,12 @@
 				}
 				
 				var d_closechew = function() {
-					if (muffin_count == 0 && !idle) {
+					if (!idle) {
 						
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_closechew_frames);
 						
-						//console.log("closechew");
+						console.log("closechew");
 						
 						clear();
 						closechew = true;
@@ -350,12 +349,12 @@
 				}
 				
 				var d_idle = function() {
-					if (muffin_count == 0 && !open) {
+					if (!open) {
 					
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_idle_frames);
 						
-						//console.log("idle");
+						console.log("idle");
 					
 						clear();
 						idle = true;
@@ -363,12 +362,12 @@
 				}
 				
 				var d_praise = function() {
-					if (muffin_count == 0 && !open) {
+					if (!open) {
 					
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_praise_frames);
 						
-						//console.log("praise");
+						console.log("praise");
 					
 						clear();
 						praise = true;
@@ -377,7 +376,7 @@
 				
 				var muffin = function() {
 					document.getElementById('clicktofeed').style.display = 'none';
-				
+					
 					d_open();
 					
 					var pageContainer = document.getElementById("pagecontainer");
@@ -392,19 +391,59 @@
 					this.position = this.div.offsetTop;
 					this.speed = 0;
 					this.acceleration = 1;
+					this.opacity = 1;
+					this.hposition = 0;
+					this.hspeed = 0;
 					
 					var self = this;
+					
+					var killmuffin = function() {
+						window.clearInterval(self.interval);
+						document.getElementById("theBody").removeChild(self.div);
+						muffin_count -= 1;
+					}
+					
+					this.fadeupdate = function() {
+						self.speed += self.acceleration;
+						self.position += self.speed;
+						self.hposition += self.hspeed;
+						self.div.style.top = self.position + "px";
+						self.div.style.marginLeft = self.hposition + "px";
+						self.opacity -= 0.05;
+						
+						self.div.style.opacity = self.opacity;
+						self.div.style.filter = 'alpha(opacity=' + self.opacity*100 + ')';
+						
+						if (self.opacity <= 0) killmuffin();
+						
+						console.log("fadeupdate");
+					}
 					
 					this.update = function() {
 						self.speed += self.acceleration;
 						self.position += self.speed;
 						self.div.style.top = self.position + "px";
 						
+						// The muffin bounces
+						if (self.position > pageContainer.clientHeight - 500) {
+							if (closechew) {
+								self.position = pageContainer.clientHeight - 500;
+								self.speed = -self.speed/1.5;
+								
+								// Muffin becomes "inactive"
+								self.hspeed = -10 + 20 * Math.random(); // From -5 to 5
+								window.clearInterval(self.interval);
+								self.interval = window.setInterval(self.fadeupdate, 25);
+								return;
+							}
+							console.log("bounce");
+						}
+						
+						// The muffin is eaten
 						if (self.position > pageContainer.clientHeight - 390) {
-							window.clearInterval(self.interval);
-							document.getElementById("theBody").removeChild(self.div);
-							muffin_count -= 1;
+							killmuffin();
 							d_closechew();
+							return;
 						}
 					}
 					this.interval = window.setInterval(this.update, 25);
