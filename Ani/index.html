@@ -27,6 +27,7 @@
 					height: 100%;
 					min-width: 675px;
 					min-height: 740px;
+					overflow: hidden;
 				}
 				#muffinbutton {
 					display: none;
@@ -77,6 +78,7 @@
 					color: white;
 					position: absolute;
 					box-sizing: border-box;
+					-moz-box-sizing: border-box;
 					width: 100%;
 					background-color: black;
 					text-align: center;
@@ -88,6 +90,14 @@
 					top: 0;
 					padding: 10px;
 					z-index: 4;
+				}
+				#logo {
+					display: block;
+					margin-left: auto;
+					margin-right: auto;
+					height: 50px;
+					width: 347px;
+					background-image: url('logo.png');
 				}
 				#footer {
 					bottom: 0;
@@ -500,7 +510,7 @@
 			</script>
 			<div id="pagecontainer">
 				<div id="header" class="wrapper">
-					<img style="display: block; margin-left: auto; margin-right: auto;" src="logo.png" alt="FeedDerpy.com" height="50" width="347">
+					<div id="logo"></div>
 					<div id="noscript">
 					<!-- JavaScript is disabled -->
 					<p>This site requires JavaScript support!</p>
@@ -509,7 +519,7 @@
 						document.getElementById('noscript').style.display = 'none';
 					</script>
 					<div id="socialbuttons">
-						<div class="fb-like" data-href="http://www.feedderpy.com/" data-width="450" data-colorscheme="dark" data-layout="button_count" data-show-faces="false" data-send="false"></div>
+						<div class="fb-like" data-href="http://www.feedderpy.com/" data-width="450" data-colorscheme="light" data-layout="button_count" data-show-faces="false" data-send="false"></div>
 						<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://FeedDerpy.com/" data-text="I just fed Derpy Hooves at" data-hashtags="FeedDerpy">Tweet</a>
 						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					</div>
@@ -548,7 +558,7 @@
 						Feed the Developer! &bull; Site by <a href="mailto:feed.derpy@gmx.com">Maximillian Laumeister</a>
 						<br />
 						Paypal: 
-						<form style="position: relative; display: inline-block; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<form style="position: relative; display: inline; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 							<input type="hidden" name="cmd" value="_s-xclick">
 							<input type="hidden" name="hosted_button_id" value="5UJBBCQ7QV37U">
 							<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
