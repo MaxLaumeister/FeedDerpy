@@ -318,6 +318,16 @@
 				
 				var ani_timeout_id;
 				
+				var basket_hover = false;
+				var on_mouseover = function() {
+					basket_hover = true;
+					d_open();
+				}
+				var on_mouseout = function() {
+					basket_hover = false;
+					d_close();
+				}
+				
 				var nextframe = function(the_div, frame, frame_descriptor) {
 					the_div.style.backgroundPosition = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
 					
@@ -404,7 +414,9 @@
 				}
 				
 				var d_idle = function() {
-					if (!open) {
+					if (basket_hover) {
+						d_open();
+					} else if (!open) {
 					
 						var the_div = document.getElementById("derpy");
 						animate(the_div, d_idle_frames);
@@ -575,7 +587,7 @@
 					</div>
 				</div>
 				<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
-				<div id="muffinbutton" onmouseover="d_open()" onmouseout="d_close()" onclick="new muffin()"></div>
+				<div id="muffinbutton" onmouseover="on_mouseover()" onmouseout="on_mouseout()" onclick="new muffin()"></div>
 				<p id="clicktofeed" class="triangle-isosceles top"><span style="font-weight: bold;">Click the basket!</span></p>
 				<div id="outer">
 					<div id="perch">
