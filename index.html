@@ -258,317 +258,331 @@
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<script type="text/javascript">
-		        
-				var muffins_eaten = 0;
-				var muffins_wasted = 0;
+		        (function() {
+					var muffins_eaten = 0;
+					var muffins_wasted = 0;
+			
+					var updateMuffinCount = function() {
+						document.getElementById("eatencount").innerHTML = muffins_eaten;
+						document.getElementById("wastedcount").innerHTML = muffins_wasted;
+						if (muffins_eaten >= 2 || muffins_wasted >= 2) document.getElementById("muffincounter").style.visibility = "visible";
+						if (muffins_eaten >= 2) document.getElementById("eaten").style.visibility = "visible";
+						if (muffins_wasted >= 2) document.getElementById("wasted").style.visibility = "visible";
 				
-				var updateMuffinCount = function() {
-					document.getElementById("eatencount").innerHTML = muffins_eaten;
-					document.getElementById("wastedcount").innerHTML = muffins_wasted;
-					if (muffins_eaten >= 2 || muffins_wasted >= 2) document.getElementById("muffincounter").style.visibility = "visible";
-					if (muffins_eaten >= 2) document.getElementById("eaten").style.visibility = "visible";
-					if (muffins_wasted >= 2) document.getElementById("wasted").style.visibility = "visible";
-					
-					
-					// Set the cookie
-					var data = muffins_eaten + "," + muffins_wasted;
-					set_cookie("feedDerpyComCounts", data, 1825, "feedderpy.com");
-				}
 				
-				var ih = 464;
-				var iw = 600;
-				
-				var d_idle_frames = {
-					timing: [4000, 50, 50, 50, 50],
-					coords: [[0, 4*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih]],
-					loop: true,
-					callback: false
-				}
-				
-				var d_open_frames = {
-					timing: [60, 60, 60, 60],
-					coords: [[0, 4*ih], [0, 3*ih], [0, 2*ih], [0, ih]],
-					loop: false,
-					callback: false
-				}
-				
-				var d_close_frames = {
-					timing: [60, 60, 60, 60],
-					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]],
-					loop: false,
-					callback: true,
-					callback_func: function(){d_idle();}
-				}
-				
-				var d_praise_frames = {
-					timing: [100, 1200, 30, 30, 30, 30, 100],
-					coords: [[0, 4*ih], [0, 10*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih], [0, 4*ih]],
-					loop: false,
-					callback: true,
-					callback_func: function(){d_idle();}
-				}
-				
-				var d_closechew_frames = {
-					timing: [60, 60, 60, 100, 100, 100, 100],
-					coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]],
-					loop: false,
-					callback: true,
-					callback_func: function(){d_praise();}
-				}
-				
-				var ani_timeout_id;
-				
-				var basket_hover = false;
-				var on_mouseover = function() {
-					basket_hover = true;
-					d_open();
-				}
-				var on_mouseout = function() {
-					basket_hover = false;
-					d_close();
-				}
-				
-				var nextframe = function(the_div, frame, frame_descriptor) {
-					the_div.style.backgroundPosition = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
-					
-					if (frame + 1 >= frame_descriptor.timing.length) {
-						// For a cascading (callback) animation
-						if(frame_descriptor.callback) frame_descriptor.callback_func();
-						// For a looping animation
-						if (frame_descriptor.loop) ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, 0, frame_descriptor);
-					} else {
-						ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, frame + 1, frame_descriptor);
+						// Set the cookie
+						var data = muffins_eaten + "," + muffins_wasted;
+						set_cookie("feedDerpyComCounts", data, 1825, "feedderpy.com");
 					}
-				}
+			
+					var ih = 464;
+					var iw = 600;
+			
+					var d_idle_frames = {
+						timing: [4000, 50, 50, 50, 50],
+						coords: [[0, 4*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih]],
+						loop: true,
+						callback: false
+					}
+			
+					var d_open_frames = {
+						timing: [60, 60, 60, 60],
+						coords: [[0, 4*ih], [0, 3*ih], [0, 2*ih], [0, ih]],
+						loop: false,
+						callback: false
+					}
+			
+					var d_close_frames = {
+						timing: [60, 60, 60, 60],
+						coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]],
+						loop: false,
+						callback: true,
+						callback_func: function(){d_idle();}
+					}
+			
+					var d_praise_frames = {
+						timing: [100, 1200, 30, 30, 30, 30, 100],
+						coords: [[0, 4*ih], [0, 10*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih], [0, 4*ih]],
+						loop: false,
+						callback: true,
+						callback_func: function(){d_idle();}
+					}
+			
+					var d_closechew_frames = {
+						timing: [60, 60, 60, 100, 100, 100, 100],
+						coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]],
+						loop: false,
+						callback: true,
+						callback_func: function(){d_praise();}
+					}
+			
+					var ani_timeout_id;
+			
+					var basket_hover = false;
+					
+			
+					var nextframe = function(the_div, frame, frame_descriptor) {
+						the_div.style.backgroundPosition = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
 				
-				// Div to animate, frame timing list, 
-				var animate = function(the_div, frame_descriptor){
-					window.clearTimeout(ani_timeout_id);
-					img_open_frame = 0;
-					nextframe(the_div, 0, frame_descriptor);
-				}
-				
-				var newmuffin = function() {
-					muffin_img = document.createElement("div");
-					muffin_img.className = "muffin";
-					return muffin_img;
-				}
-				
-				var muffin_count = 0;
-				
-				var open = false;
-				var closed = false;
-				var closechew = false;
-				var idle = false;
-				var praise = false;
-				
-				var clear = function() {
-					open = false;
-					closed = false;
-					closechew = false;
-					idle = false;
-					praise = false;
-				}
-				
-				var busy = function() {
-					return (open || closed || closechew || praise);
-				}
-				
-				var d_open = function() {
-					if (muffin_count == 0 && !open && !closechew) {
+						if (frame + 1 >= frame_descriptor.timing.length) {
+							// For a cascading (callback) animation
+							if(frame_descriptor.callback) frame_descriptor.callback_func();
+							// For a looping animation
+							if (frame_descriptor.loop) ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, 0, frame_descriptor);
+						} else {
+							ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, frame + 1, frame_descriptor);
+						}
+					}
+			
+					// Div to animate, frame timing list, 
+					var animate = function(the_div, frame_descriptor){
+						window.clearTimeout(ani_timeout_id);
+						img_open_frame = 0;
+						nextframe(the_div, 0, frame_descriptor);
+					}
+			
+					var newmuffin = function() {
+						muffin_img = document.createElement("div");
+						muffin_img.className = "muffin";
+						return muffin_img;
+					}
+			
+					var muffin_count = 0;
+			
+					var open = false;
+					var closed = false;
+					var closechew = false;
+					var idle = false;
+					var praise = false;
+			
+					var clear = function() {
+						open = false;
+						closed = false;
+						closechew = false;
+						idle = false;
+						praise = false;
+					}
+			
+					var busy = function() {
+						return (open || closed || closechew || praise);
+					}
+			
+					var d_open = function() {
+						if (muffin_count == 0 && !open && !closechew) {
 
-						var the_div = document.getElementById("derpy");
-						animate(the_div, d_open_frames);
-						
-						//console.log("open");
-						
-						clear();
-						open = true;
+							var the_div = document.getElementById("derpy");
+							animate(the_div, d_open_frames);
+					
+							//console.log("open");
+					
+							clear();
+							open = true;
+						}
 					}
-				}
-				
-				var d_close = function() {
-					if (muffin_count == 0 && open && !closechew) {
-						
-						var the_div = document.getElementById("derpy");
-						animate(the_div, d_close_frames);
-						
-						//console.log("close");
-						
-						clear();
-						closed = true;
+			
+					var d_close = function() {
+						if (muffin_count == 0 && open && !closechew) {
+					
+							var the_div = document.getElementById("derpy");
+							animate(the_div, d_close_frames);
+					
+							//console.log("close");
+					
+							clear();
+							closed = true;
+						}
 					}
-				}
-				
-				var d_closechew = function() {
-					if (!idle) {
-						
-						var the_div = document.getElementById("derpy");
-						animate(the_div, d_closechew_frames);
-						
-						//console.log("closechew");
-						
-						clear();
-						closechew = true;
+			
+					var d_closechew = function() {
+						if (!idle) {
+					
+							var the_div = document.getElementById("derpy");
+							animate(the_div, d_closechew_frames);
+					
+							//console.log("closechew");
+					
+							clear();
+							closechew = true;
+						}
 					}
-				}
+			
+					var d_idle = function() {
+						if (basket_hover) {
+							d_open();
+						} else if (!open) {
 				
-				var d_idle = function() {
-					if (basket_hover) {
+							var the_div = document.getElementById("derpy");
+							animate(the_div, d_idle_frames);
+					
+							//console.log("idle");
+				
+							clear();
+							idle = true;
+						}
+					}
+			
+					var d_praise = function() {
+						if (!open) {
+				
+							var the_div = document.getElementById("derpy");
+							animate(the_div, d_praise_frames);
+					
+							//console.log("praise");
+				
+							clear();
+							praise = true;
+						}
+					}
+			
+					var Muffin = function() {
+						document.getElementById('clicktofeed').style.display = 'none';
+				
 						d_open();
-					} else if (!open) {
-					
-						var the_div = document.getElementById("derpy");
-						animate(the_div, d_idle_frames);
-						
-						//console.log("idle");
-					
-						clear();
-						idle = true;
-					}
-				}
 				
-				var d_praise = function() {
-					if (!open) {
-					
-						var the_div = document.getElementById("derpy");
-						animate(the_div, d_praise_frames);
-						
-						//console.log("praise");
-					
-						clear();
-						praise = true;
-					}
-				}
+						var pageContainer = document.getElementById("pagecontainer");
 				
-				var muffin = function() {
-					document.getElementById('clicktofeed').style.display = 'none';
+						muffin_count += 1;
+				
+						this.div = newmuffin();
+						this.div.style.left = pageContainer.scrollWidth / 2 - 50 + "px";
+						this.div.style.top = "140px";
+						document.getElementById("theBody").appendChild(this.div);
+				
+						this.position = this.div.offsetTop;
+						this.speed = 0;
+						this.acceleration = 1;
+						this.opacity = 1;
+						this.hposition = 0;
+						this.hspeed = 0;
+				
+						var self = this;
+				
+						var killmuffin = function() {
+							window.clearInterval(self.interval);
+							document.getElementById("theBody").removeChild(self.div);
+							muffin_count -= 1;
+						}
+				
+						this.fadeupdate = function() {
+							self.speed += self.acceleration;
+							self.position += self.speed;
+							self.hposition += self.hspeed;
+							self.div.style.top = self.position + "px";
+							self.div.style.marginLeft = self.hposition + "px";
+							self.opacity -= 0.05;
 					
-					d_open();
+							self.div.style.opacity = self.opacity;
+							self.div.style.filter = 'alpha(opacity=' + self.opacity*100 + ')';
 					
-					var pageContainer = document.getElementById("pagecontainer");
+							if (self.opacity <= 0) killmuffin();
 					
-					muffin_count += 1;
+							//console.log("fadeupdate");
+						}
+				
+						this.update = function() {
+							self.speed += self.acceleration;
+							self.position += self.speed;
+							self.div.style.top = self.position + "px";
 					
-					this.div = newmuffin();
-					this.div.style.left = pageContainer.scrollWidth / 2 - 50 + "px";
-					this.div.style.top = "140px";
-					document.getElementById("theBody").appendChild(this.div);
+							// The muffin bounces
+							if (self.position > pageContainer.clientHeight - 500) {
+								if (closechew) {
+									self.position = pageContainer.clientHeight - 500;
+									self.speed = -self.speed/1.5;
+							
+									// Muffin becomes "inactive"
+									self.hspeed = -10 + 20 * Math.random(); // From -5 to 5
+									window.clearInterval(self.interval);
+									self.interval = window.setInterval(self.fadeupdate, 25);
+									muffins_wasted++; updateMuffinCount();
+									return;
+								}
+							}
 					
-					this.position = this.div.offsetTop;
-					this.speed = 0;
-					this.acceleration = 1;
-					this.opacity = 1;
-					this.hposition = 0;
-					this.hspeed = 0;
-					
-					var self = this;
-					
-					var killmuffin = function() {
-						window.clearInterval(self.interval);
-						document.getElementById("theBody").removeChild(self.div);
-						muffin_count -= 1;
-					}
-					
-					this.fadeupdate = function() {
-						self.speed += self.acceleration;
-						self.position += self.speed;
-						self.hposition += self.hspeed;
-						self.div.style.top = self.position + "px";
-						self.div.style.marginLeft = self.hposition + "px";
-						self.opacity -= 0.05;
-						
-						self.div.style.opacity = self.opacity;
-						self.div.style.filter = 'alpha(opacity=' + self.opacity*100 + ')';
-						
-						if (self.opacity <= 0) killmuffin();
-						
-						//console.log("fadeupdate");
-					}
-					
-					this.update = function() {
-						self.speed += self.acceleration;
-						self.position += self.speed;
-						self.div.style.top = self.position + "px";
-						
-						// The muffin bounces
-						if (self.position > pageContainer.clientHeight - 500) {
-							if (closechew) {
-								self.position = pageContainer.clientHeight - 500;
-								self.speed = -self.speed/1.5;
-								
-								// Muffin becomes "inactive"
-								self.hspeed = -10 + 20 * Math.random(); // From -5 to 5
-								window.clearInterval(self.interval);
-								self.interval = window.setInterval(self.fadeupdate, 25);
-								muffins_wasted++; updateMuffinCount();
+							// The muffin is eaten
+							if (self.position > pageContainer.clientHeight - 390) {
+								killmuffin();
+								d_closechew();
+								muffins_eaten++; updateMuffinCount();
 								return;
 							}
 						}
+						this.interval = window.setInterval(this.update, 25);
+					}
+					
+					// External functions
+					
+					function on_mouseover() {
+						basket_hover = true;
+						d_open();
+					}
+					function on_mouseout() {
+						basket_hover = false;
+						d_close();
+					}
+					
+					function thanks_open() {
+						document.getElementById("thanks").style.display = 'block';
+						document.getElementById("thanksinner").style.display = 'block';
+					}
+			
+					function thanks_close() {
+						document.getElementById("thanks").style.display = 'none';
+						document.getElementById("thanksinner").style.display = 'none';
+					}
+					
+					function resetMuffinCount() {
+						muffins_eaten = 0;
+						muffins_wasted = 0;
+						updateMuffinCount();
+				
+						// Set the cookie
+						var data = "0,0";
+						set_cookie("feedDerpyComCounts", data, 0, "feedderpy.com");
+					}
+					
+					// Utility functions
+					
+					function set_cookie(cookie_name, cookie_value,
+						lifespan_in_days, valid_domain ) {
+						// http://www.thesitewizard.com/javascripts/cookies.shtml
+						var domain_string = valid_domain ?
+										   ("; domain=" + valid_domain) : '' ;
+						document.cookie = cookie_name +
+										   "=" + encodeURIComponent( cookie_value ) +
+										   "; max-age=" + 60 * 60 *
+										   24 * lifespan_in_days +
+										   "; path=/" + domain_string ;
+					}
+					
+					function get_cookie(name) {
+						var parts = document.cookie.split(name + "=");
+						if (parts.length == 2) return decodeURIComponent(parts.pop().split(";").shift());
+						return '';
+					}
+					
+					// Go!
+					document.addEventListener('DOMContentLoaded', (function(){
+						d_idle();
 						
-						// The muffin is eaten
-						if (self.position > pageContainer.clientHeight - 390) {
-							killmuffin();
-							d_closechew();
-							muffins_eaten++; updateMuffinCount();
-							return;
+						// Get cookie
+						if (get_cookie("feedDerpyComCounts") != "") {
+							var partsOfStr = cookie_value.split(',');
+							muffins_eaten = parseInt(partsOfStr[0]);
+							muffins_wasted = parseInt(partsOfStr[1]);
+							updateMuffinCount();
 						}
-					}
-					this.interval = window.setInterval(this.update, 25);
-				}
-				
-				var thanks_open = function() {
-					document.getElementById("thanks").style.display = 'block';
-					document.getElementById("thanksinner").style.display = 'block';
-				}
-				
-				var thanks_close = function() {
-					document.getElementById("thanks").style.display = 'none';
-					document.getElementById("thanksinner").style.display = 'none';
-				}
-					
-				function set_cookie ( cookie_name, cookie_value,
-					lifespan_in_days, valid_domain )
-				{
-					// http://www.thesitewizard.com/javascripts/cookies.shtml
-					var domain_string = valid_domain ?
-									   ("; domain=" + valid_domain) : '' ;
-					document.cookie = cookie_name +
-									   "=" + encodeURIComponent( cookie_value ) +
-									   "; max-age=" + 60 * 60 *
-									   24 * lifespan_in_days +
-									   "; path=/" + domain_string ;
-				}
-				function get_cookie ( name )
-				{
-					var parts = document.cookie.split(name + "=");
-					if (parts.length == 2) return decodeURIComponent(parts.pop().split(";").shift());
-					return '';
-				}
-				
-				function resetCount() {
-					muffins_eaten = 0;
-					muffins_wasted = 0;
-					updateMuffinCount();
-					
-					// Set the cookie
-					var data = "0,0";
-					set_cookie("feedDerpyComCounts", data, 0, "feedderpy.com");
-				}
-				
-				window.onload = function() {
-					d_idle();
-					// Get cookie
-					var cookie_value = get_cookie("feedDerpyComCounts");
-					if ((cookie_value) == "") {
-						console.log("no cookie found");
-						return; // No cookie found
-					}
-					var partsOfStr = cookie_value.split(',');
-					muffins_eaten = parseInt(partsOfStr[0]);
-					muffins_wasted = parseInt(partsOfStr[1]);
-					updateMuffinCount();
-				}
+						
+						// Tie functions into dom
+						var mb = document.getElementById("muffinbutton");
+						mb.onclick = function(){new Muffin()};
+						mb.onmouseover = on_mouseover;
+						mb.onmouseout = on_mouseout;
+						document.getElementById("resetbutton").onclick = resetMuffinCount;
+						document.getElementById("show_thanks").onclick = thanks_open;
+						document.getElementById("thanks").onclick = thanks_close;
+					}).bind(this));
+				})();
 			</script>
 			<div id="pagecontainer">
 				<div id="header" class="wrapper">
@@ -587,7 +601,7 @@
 					</div>
 				</div>
 				<div class="muffin" style="visibility: hidden;"><!-- Muffin Preload --></div>
-				<div id="muffinbutton" onmouseover="on_mouseover()" onmouseout="on_mouseout()" onclick="new muffin()"></div>
+				<div id="muffinbutton"></div>
 				<p id="clicktofeed" class="triangle-isosceles top"><span style="font-weight: bold;">Click the basket!</span></p>
 				<div id="outer">
 					<div id="perch">
@@ -604,7 +618,7 @@
 						<div id="muffincounterinner">
 							<span id="eaten" style="visibility: hidden;">Muffins Eaten: <span id="eatencount">0</span></span><br />
 							<span id="wasted" style="visibility: hidden;">Muffins Wasted: <span id="wastedcount">0</span></span><br />
-							<span class="pseudolink" style="font-size: 80%;" onclick="resetCount();">Reset</span>
+							<span id="resetbutton" class="pseudolink" style="font-size: 80%;">Reset</span>
 						</div>
 					</div>
 					<div id="adsense">

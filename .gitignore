@@ -1,2 +1,2 @@
-/Ani/*.db
-/Thumbs.db
+*.db
+*~
