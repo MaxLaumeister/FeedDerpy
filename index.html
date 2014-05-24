@@ -286,7 +286,7 @@
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		<script type="text/javascript">
-		        (function() {
+		        document.addEventListener('DOMContentLoaded', function() {
 					var muffins_eaten = 0;
 					var muffins_wasted = 0;
 					var muffins_active = 0;
@@ -295,30 +295,21 @@
 					var actions = {
 						open: function() {
 							if (muffins_active == 0 && !action_status.open && !action_status.closechew) {
-
-								var the_div = document.getElementById("derpy");
-								animator.animate(the_div, frame_descriptors.open);
-					
+								animator.animate(dom.derpy, frame_descriptors.open);
 								clear_action_status();
 								action_status.open = true;
 							}
 						},
 						close: function() {
 							if (muffins_active == 0 && action_status.open && !action_status.closechew) {
-					
-								var the_div = document.getElementById("derpy");
-								animator.animate(the_div, frame_descriptors.close);
-					
+								animator.animate(dom.derpy, frame_descriptors.close);
 								clear_action_status();
 								action_status.close = true;
 							}
 						},
 						closechew: function() {
 							if (!action_status.idle) {
-					
-								var the_div = document.getElementById("derpy");
-								animator.animate(the_div, frame_descriptors.closechew);
-					
+								animator.animate(dom.derpy, frame_descriptors.closechew);
 								clear_action_status();
 								action_status.closechew = true;
 							}
@@ -327,20 +318,14 @@
 							if (basket_mousedOver) {
 								actions.open();
 							} else if (!action_status.open) {
-				
-								var the_div = document.getElementById("derpy");
-								animator.animate(the_div, frame_descriptors.idle);
-				
+								animator.animate(dom.derpy, frame_descriptors.idle);
 								clear_action_status();
 								action_status.idle = true;
 							}
 						},
 						praise: function() {
 							if (!action_status.open) {
-				
-								var the_div = document.getElementById("derpy");
-								animator.animate(the_div, frame_descriptors.praise);
-				
+								animator.animate(dom.derpy, frame_descriptors.praise);
 								clear_action_status();
 								action_status.praise = true;
 							}
@@ -427,17 +412,15 @@
 					 * @constructor
 					 */
 					function Muffin() {
-						document.getElementById('clicktofeed').style.display = 'none';
+						dom.clicktofeed.style.display = 'none';
 				
 						actions.open();
-				
-						this.pageContainer = document.getElementById("pagecontainer");
 				
 						muffins_active += 1;
 				
 						this.div = document.createElement("div");
 						this.div.className = "muffin";
-						this.div.style.left = this.pageContainer.scrollWidth / 2 - 50 + "px";
+						this.div.style.left = dom.pagecontainer.scrollWidth / 2 - 50 + "px";
 						this.div.style.top = "140px";
 						document.body.appendChild(this.div);
 				
@@ -458,9 +441,9 @@
 							this.div.style.top = this.position + "px";
 					
 							// The muffin bounces
-							if (this.position > this.pageContainer.clientHeight - 500) {
+							if (this.position > dom.pagecontainer.clientHeight - 500) {
 								if (action_status.closechew) {
-									this.position = this.pageContainer.clientHeight - 500;
+									this.position = dom.pagecontainer.clientHeight - 500;
 									this.speed = -this.speed/1.5;
 							
 									// Muffin becomes "inactive"
@@ -473,7 +456,7 @@
 							}
 					
 							// The muffin is eaten
-							if (this.position > this.pageContainer.clientHeight - 390) {
+							if (this.position > dom.pagecontainer.clientHeight - 390) {
 								this.destroySelf();
 								actions.closechew();
 								muffins_eaten++; updateMuffinCount();
@@ -512,13 +495,13 @@
 					}
 					
 					function thanks_open() {
-						document.getElementById("thanks").style.display = 'block';
-						document.getElementById("thanksinner").style.display = 'block';
+						dom.thanks.style.display = 'block';
+						dom.thanksinner.style.display = 'block';
 					}
 			
 					function thanks_close() {
-						document.getElementById("thanks").style.display = 'none';
-						document.getElementById("thanksinner").style.display = 'none';
+						dom.thanks.style.display = 'none';
+						dom.thanksinner.style.display = 'none';
 					}
 					
 					function resetMuffinCount() {
@@ -534,11 +517,11 @@
 					// Utility functions
 					
 					function updateMuffinCount() {
-						document.getElementById("eatencount").innerHTML = muffins_eaten;
-						document.getElementById("wastedcount").innerHTML = muffins_wasted;
-						if (muffins_eaten >= 2 || muffins_wasted >= 2) document.getElementById("muffincounter").style.visibility = "visible";
-						if (muffins_eaten >= 2) document.getElementById("eaten").style.visibility = "visible";
-						if (muffins_wasted >= 2) document.getElementById("wasted").style.visibility = "visible";
+						dom.eatencount.innerHTML = muffins_eaten;
+						dom.wastedcount.innerHTML = muffins_wasted;
+						if (muffins_eaten >= 2 || muffins_wasted >= 2) dom.muffincounter.style.visibility = "visible";
+						if (muffins_eaten >= 2) dom.eaten.style.visibility = "visible";
+						if (muffins_wasted >= 2) dom.wasted.style.visibility = "visible";
 				
 						// Set the cookie
 						var data = muffins_eaten + "," + muffins_wasted;
@@ -563,28 +546,44 @@
 						return '';
 					}
 					
-					// Go!
-					document.addEventListener('DOMContentLoaded', (function(){
-						actions.idle();
-						
-						// Get cookie
-						if (get_cookie("feedDerpyComCounts") != "") {
-							var partsOfStr = cookie_value.split(',');
-							muffins_eaten = parseInt(partsOfStr[0], 10);
-							muffins_wasted = parseInt(partsOfStr[1], 10);
-							updateMuffinCount();
-						}
-						
-						// Tie external functions into dom
-						var mb = document.getElementById("muffinbutton");
-						mb.onclick = function(){new Muffin()};
-						mb.onmouseover = on_mouseover;
-						mb.onmouseout = on_mouseout;
-						document.getElementById("resetbutton").onclick = resetMuffinCount;
-						document.getElementById("show_thanks").onclick = thanks_open;
-						document.getElementById("thanks").onclick = thanks_close;
-					}).bind(this));
-				})();
+					// Dom element cache
+					
+					var dom = {};
+					
+					// Get cookie
+					if (get_cookie("feedDerpyComCounts") != "") {
+						var partsOfStr = cookie_value.split(',');
+						muffins_eaten = parseInt(partsOfStr[0], 10);
+						muffins_wasted = parseInt(partsOfStr[1], 10);
+						updateMuffinCount();
+					}
+					
+					// Cache dom elements
+					dom.derpy = document.getElementById("derpy");
+					dom.eaten = document.getElementById("eaten");
+					dom.wasted = document.getElementById("wasted");
+					dom.eatencount = document.getElementById("eatencount");
+					dom.wastedcount = document.getElementById("wastedcount");
+					dom.muffinbutton = document.getElementById("muffinbutton");
+					dom.muffincounter = document.getElementById("muffincounter");
+					dom.resetbutton = document.getElementById("resetbutton");
+					dom.show_thanks = document.getElementById("show_thanks");
+					dom.thanks = document.getElementById("thanks");
+					dom.thanksinner = document.getElementById("thanksinner");
+					dom.pagecontainer = document.getElementById("pagecontainer");
+					dom.clicktofeed = document.getElementById("clicktofeed");
+					
+					// Tie external functions into dom
+					dom.muffinbutton.onclick = function(){new Muffin()};
+					dom.muffinbutton.onmouseover = on_mouseover;
+					dom.muffinbutton.onmouseout = on_mouseout;
+					dom.resetbutton.onclick = resetMuffinCount;
+					dom.show_thanks.onclick = thanks_open;
+					dom.thanks.onclick = thanks_close;
+					
+					// Start animation!
+					actions.idle();
+				});
 			</script>
 			<div id="pagecontainer">
 				<div id="header" class="wrapper">
