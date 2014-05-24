@@ -262,7 +262,7 @@
 					var muffins_eaten = 0;
 					var muffins_wasted = 0;
 			
-					var updateMuffinCount = function() {
+					function updateMuffinCount() {
 						document.getElementById("eatencount").innerHTML = muffins_eaten;
 						document.getElementById("wastedcount").innerHTML = muffins_wasted;
 						if (muffins_eaten >= 2 || muffins_wasted >= 2) document.getElementById("muffincounter").style.visibility = "visible";
@@ -321,27 +321,31 @@
 					var basket_hover = false;
 					
 			
-					var nextframe = function(the_div, frame, frame_descriptor) {
+					function nextframe(the_div, frame, frame_descriptor) {
 						the_div.style.backgroundPosition = frame_descriptor.coords[frame][0] + "px " + frame_descriptor.coords[frame][1] + "px";
+						
+						function getNextFrameFunc(a, b, c){
+							return function(){nextframe(a, b, c);};
+						}
 				
 						if (frame + 1 >= frame_descriptor.timing.length) {
 							// For a cascading (callback) animation
 							if(frame_descriptor.callback) frame_descriptor.callback_func();
 							// For a looping animation
-							if (frame_descriptor.loop) ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, 0, frame_descriptor);
+							if (frame_descriptor.loop) ani_timeout_id = setTimeout(getNextFrameFunc(the_div, 0, frame_descriptor), frame_descriptor.timing[frame]);
 						} else {
-							ani_timeout_id = setTimeout(nextframe, frame_descriptor.timing[frame], the_div, frame + 1, frame_descriptor);
+							ani_timeout_id = setTimeout(getNextFrameFunc(the_div, frame + 1, frame_descriptor), frame_descriptor.timing[frame]);
 						}
 					}
 			
 					// Div to animate, frame timing list, 
-					var animate = function(the_div, frame_descriptor){
+					function animate(the_div, frame_descriptor){
 						window.clearTimeout(ani_timeout_id);
 						img_open_frame = 0;
 						nextframe(the_div, 0, frame_descriptor);
 					}
 			
-					var newmuffin = function() {
+					function newmuffin() {
 						muffin_img = document.createElement("div");
 						muffin_img.className = "muffin";
 						return muffin_img;
@@ -433,8 +437,11 @@
 							praise = true;
 						}
 					}
-			
-					var Muffin = function() {
+					
+					/**
+					 * @constructor
+					 */
+					function Muffin() {
 						document.getElementById('clicktofeed').style.display = 'none';
 				
 						d_open();
@@ -657,10 +664,10 @@
 							, lbl_amount: "BTC"
 						});
 						</script>
-						<div id="show_thanks"><span class="pseudolink" onclick="thanks_open();">Special Thanks</span></div>
+						<div id="show_thanks"><span class="pseudolink">Special Thanks</span></div>
 					</div>
 				</div>
-				<div id="thanks" onclick="thanks_close();">
+				<div id="thanks">
 				</div>
 				<div id="thanksinner">
 					<h1>Special Thanks</h1>
