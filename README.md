@@ -1,9 +1,7 @@
 Feed Derpy
 =========
 
-A small web demo featuring CSS sprite sheet animation.
-
-Current version hosted at [FeedDerpy.com](http://feedderpy.com).
+A small web demo featuring CSS sprite sheet animation, hosted at [FeedDerpy.com](http://feedderpy.com).
 
 ### License ###
 
