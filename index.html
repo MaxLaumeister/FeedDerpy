@@ -10,17 +10,21 @@
 				* {
 					font-family:Arial, Helvetica, sans-serif;
 				}
+				
 				html {
 					height: 100%;
 				}
+				
 				html, body {
 					min-height: 100%;
 				}
+				
 				body {
 					position: absolute;
 					margin: 0;
 					width: 100%;
 				}
+				
 				#pagecontainer {
 					position: absolute;
 					width: 100%;
@@ -29,6 +33,7 @@
 					min-height: 740px;
 					overflow: hidden;
 				}
+				
 				#muffinbutton {
 					display: none;
 					top: 60px;
@@ -41,6 +46,7 @@
 					z-index: 3;
 					cursor: pointer;
 				}
+				
 				#derpy {
 					position: absolute;
 					width: 600px;
@@ -48,6 +54,7 @@
 					background-image: url('sprite.png');
 					background-position: 0 1856px;
 				}
+				
 				.muffin {
 					position: absolute;
 					width: 100px;
@@ -58,6 +65,7 @@
 					background-image: url('muffin.png');
 					z-index: 2;
 				}
+				
 				#outer {
 					display: none;
 					position: absolute;
@@ -66,6 +74,7 @@
 					height: 420px;
 					bottom: 80px;
 				}
+				
 				#perch {
 					position: relative;
 					padding-left: 75px;
@@ -74,6 +83,7 @@
 					width: 600px;
 					z-index: 1;
 				}
+				
 				.wrapper {
 					color: white;
 					position: absolute;
@@ -83,14 +93,17 @@
 					background-color: black;
 					text-align: center;
 				}
+				
 				.wrapper a {
 					color: white;
 				}
+				
 				#header {
 					top: 0;
 					padding: 10px;
 					z-index: 4;
 				}
+				
 				#logo {
 					display: block;
 					margin-left: auto;
@@ -99,10 +112,12 @@
 					width: 347px;
 					background-image: url('logo.png');
 				}
+				
 				#footer {
 					bottom: 0;
 					height: 115px;
 				}
+				
 				#footerinner {
 					position: absolute;
 					left: 0;
@@ -111,6 +126,7 @@
 					margin-left: auto;
 					margin-right: auto;
 				}
+				
 				#adsense {
 					position: absolute;
 					width: 234px;
@@ -120,10 +136,12 @@
 					margin-bottom: 20px;
 					z-index: 6;
 				}
+				
 				#noscript {
 					color: red;
 					font-size: 2em;
 				}
+				
 				#show_thanks {
 					position: absolute;
 					right: 20px;
@@ -131,6 +149,7 @@
 					margin-bottom: 20px;
 					z-index: 6;
 				}
+				
 				#thanks {
 					display: none;
 					position: absolute;
@@ -143,6 +162,7 @@
 					filter:alpha(opacity=40); /* For IE8 and earlier */
 					z-index: 20;
 				}
+				
 				#thanksinner {
 					display: none;
 					box-sizing: border-box;
@@ -157,9 +177,50 @@
 					color: white;
 					z-index: 21;
 				}
+				
 				#thanksinner a {
 					color: white;
 				}
+				
+				#clicktofeed {
+					display: none;
+					position: absolute;
+					left: 50%;
+					top: 240px;
+					color: white;
+					z-index: 10;
+				}
+				
+				#muffincounter {
+					visibility: hidden;
+					position: absolute;
+					top: -200px;
+					height: 200px;
+					width: 500px;
+					left: 0;
+					text-align: left;
+					color: black;
+				}
+				
+				#muffincounterinner {
+					position: absolute;
+					left: 20px;
+					bottom: 20px;
+				}
+				
+				#socialbuttons {
+					padding-top: 10px;
+				}
+				
+				.fb-like {
+					padding-right: 10px;
+				}
+				
+				.pseudolink {
+					cursor: pointer;
+					text-decoration: underline;
+				}
+				
 				/* Speech bubble code snippet by Nicolas Gallagher. */
 				/* More info, and license: http://nicolasgallagher.com/pure-css-speech-bubbles/demo/default.css */
 				.triangle-isosceles {
@@ -204,39 +265,6 @@
 					border-width:0 15px 15px; /* vary these values to change the angle of the vertex */
 					border-color:#0ABA00 transparent;
 				}
-				#clicktofeed {
-					display: none;
-					position: absolute;
-					left: 50%;
-					top: 240px;
-					color: white;
-					z-index: 10;
-				}
-				#muffincounter {
-					visibility: hidden;
-					position: absolute;
-					top: -200px;
-					height: 200px;
-					width: 500px;
-					left: 0;
-					text-align: left;
-					color: black;
-				}
-				#muffincounterinner {
-					position: absolute;
-					left: 20px;
-					bottom: 20px;
-				}
-				#socialbuttons {
-					padding-top: 10px;
-				}
-				.fb-like {
-					padding-right: 10px;
-				}
-				.pseudolink {
-					cursor: pointer;
-					text-decoration: underline;
-				}
 			</style>
 			<script>
 			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -274,46 +302,99 @@
 						var data = muffins_eaten + "," + muffins_wasted;
 						set_cookie("feedDerpyComCounts", data, 1825, "feedderpy.com");
 					}
-			
+					
+					var actions = {
+						open: function() {
+							if (muffin_count == 0 && !open && !closechew) {
+
+								var the_div = document.getElementById("derpy");
+								animate(the_div, frames.open);
+					
+								clear();
+								open = true;
+							}
+						},
+						close: function() {
+							if (muffin_count == 0 && open && !closechew) {
+					
+								var the_div = document.getElementById("derpy");
+								animate(the_div, frames.close);
+					
+								clear();
+								closed = true;
+							}
+						},
+						closechew: function() {
+							if (!idle) {
+					
+								var the_div = document.getElementById("derpy");
+								animate(the_div, frames.closechew);
+					
+								clear();
+								closechew = true;
+							}
+						},
+						idle: function() {
+							if (basket_hover) {
+								actions.open();
+							} else if (!open) {
+				
+								var the_div = document.getElementById("derpy");
+								animate(the_div, frames.idle);
+				
+								clear();
+								idle = true;
+							}
+						},
+						praise: function() {
+							if (!open) {
+				
+								var the_div = document.getElementById("derpy");
+								animate(the_div, frames.praise);
+				
+								clear();
+								praise = true;
+							}
+						}
+					}
+					
 					var ih = 464;
 					var iw = 600;
-			
-					var d_idle_frames = {
-						timing: [4000, 50, 50, 50, 50],
-						coords: [[0, 4*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih]],
-						loop: true,
-						callback: false
-					}
-			
-					var d_open_frames = {
-						timing: [60, 60, 60, 60],
-						coords: [[0, 4*ih], [0, 3*ih], [0, 2*ih], [0, ih]],
-						loop: false,
-						callback: false
-					}
-			
-					var d_close_frames = {
-						timing: [60, 60, 60, 60],
-						coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]],
-						loop: false,
-						callback: true,
-						callback_func: function(){d_idle();}
-					}
-			
-					var d_praise_frames = {
-						timing: [100, 1200, 30, 30, 30, 30, 100],
-						coords: [[0, 4*ih], [0, 10*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih], [0, 4*ih]],
-						loop: false,
-						callback: true,
-						callback_func: function(){d_idle();}
-					}
-			
-					var d_closechew_frames = {
-						timing: [60, 60, 60, 100, 100, 100, 100],
-						coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]],
-						loop: false,
-						callback: true,
-						callback_func: function(){d_praise();}
+					
+					var frames = {
+						idle: {
+							timing: [4000, 50, 50, 50, 50],
+							coords: [[0, 4*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih]],
+							loop: true,
+							callback: false
+						},
+						open: {
+							timing: [60, 60, 60, 60],
+							coords: [[0, 4*ih], [0, 3*ih], [0, 2*ih], [0, ih]],
+							loop: false,
+							callback: false
+						},
+						close: {
+							timing: [60, 60, 60, 60],
+							coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 4*ih]],
+							loop: false,
+							callback: true,
+							callback_func: actions.idle
+						},
+						praise: {
+							timing: [100, 1200, 30, 30, 30, 30, 100],
+							coords: [[0, 4*ih], [0, 10*ih], [0, 10*ih], [0, 9*ih], [0, 8*ih], [0, 7*ih], [0, 4*ih]],
+							loop: false,
+							callback: true,
+							callback_func: actions.idle
+						},
+						closechew: {
+							timing: [60, 60, 60, 100, 100, 100, 100],
+							coords: [[0, ih], [0, 2*ih], [0, 3*ih], [0, 5*ih], [0, 6*ih], [0, 5*ih], [0, 6*ih]],
+							loop: false,
+							callback: true,
+							callback_func: actions.praise
+						}
 					}
 			
 					var ani_timeout_id;
@@ -370,73 +451,6 @@
 					var busy = function() {
 						return (open || closed || closechew || praise);
 					}
-			
-					var d_open = function() {
-						if (muffin_count == 0 && !open && !closechew) {
-
-							var the_div = document.getElementById("derpy");
-							animate(the_div, d_open_frames);
-					
-							//console.log("open");
-					
-							clear();
-							open = true;
-						}
-					}
-			
-					var d_close = function() {
-						if (muffin_count == 0 && open && !closechew) {
-					
-							var the_div = document.getElementById("derpy");
-							animate(the_div, d_close_frames);
-					
-							//console.log("close");
-					
-							clear();
-							closed = true;
-						}
-					}
-			
-					var d_closechew = function() {
-						if (!idle) {
-					
-							var the_div = document.getElementById("derpy");
-							animate(the_div, d_closechew_frames);
-					
-							//console.log("closechew");
-					
-							clear();
-							closechew = true;
-						}
-					}
-			
-					var d_idle = function() {
-						if (basket_hover) {
-							d_open();
-						} else if (!open) {
-				
-							var the_div = document.getElementById("derpy");
-							animate(the_div, d_idle_frames);
-					
-							//console.log("idle");
-				
-							clear();
-							idle = true;
-						}
-					}
-			
-					var d_praise = function() {
-						if (!open) {
-				
-							var the_div = document.getElementById("derpy");
-							animate(the_div, d_praise_frames);
-					
-							//console.log("praise");
-				
-							clear();
-							praise = true;
-						}
-					}
 					
 					/**
 					 * @constructor
@@ -444,7 +458,7 @@
 					function Muffin() {
 						document.getElementById('clicktofeed').style.display = 'none';
 				
-						d_open();
+						actions.open();
 				
 						var pageContainer = document.getElementById("pagecontainer");
 				
@@ -509,7 +523,7 @@
 							// The muffin is eaten
 							if (self.position > pageContainer.clientHeight - 390) {
 								killmuffin();
-								d_closechew();
+								actions.closechew();
 								muffins_eaten++; updateMuffinCount();
 								return;
 							}
@@ -521,11 +535,11 @@
 					
 					function on_mouseover() {
 						basket_hover = true;
-						d_open();
+						actions.open();
 					}
 					function on_mouseout() {
 						basket_hover = false;
-						d_close();
+						actions.close();
 					}
 					
 					function thanks_open() {
@@ -570,17 +584,17 @@
 					
 					// Go!
 					document.addEventListener('DOMContentLoaded', (function(){
-						d_idle();
+						actions.idle();
 						
 						// Get cookie
 						if (get_cookie("feedDerpyComCounts") != "") {
 							var partsOfStr = cookie_value.split(',');
-							muffins_eaten = parseInt(partsOfStr[0]);
-							muffins_wasted = parseInt(partsOfStr[1]);
+							muffins_eaten = parseInt(partsOfStr[0], 10);
+							muffins_wasted = parseInt(partsOfStr[1], 10);
 							updateMuffinCount();
 						}
 						
-						// Tie functions into dom
+						// Tie external functions into dom
 						var mb = document.getElementById("muffinbutton");
 						mb.onclick = function(){new Muffin()};
 						mb.onmouseover = on_mouseover;
