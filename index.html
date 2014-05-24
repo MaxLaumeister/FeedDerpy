@@ -209,11 +209,13 @@
 				}
 				
 				#socialbuttons {
+					display: inline-block;
 					padding-top: 10px;
 				}
 				
 				.fb-like {
-					padding-right: 10px;
+					margin-right: 10px;
+					vertical-align: top;
 				}
 				
 				.pseudolink {
@@ -546,10 +548,6 @@
 						return '';
 					}
 					
-					// Dom element cache
-					
-					var dom = {};
-					
 					// Get cookie
 					if (get_cookie("feedDerpyComCounts") != "") {
 						var partsOfStr = cookie_value.split(',');
@@ -559,6 +557,9 @@
 					}
 					
 					// Cache dom elements
+					
+					var dom = {};
+					
 					dom.derpy = document.getElementById("derpy");
 					dom.eaten = document.getElementById("eaten");
 					dom.wasted = document.getElementById("wasted");
