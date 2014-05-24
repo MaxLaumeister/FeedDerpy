@@ -305,56 +305,74 @@
 					
 					var actions = {
 						open: function() {
-							if (muffin_count == 0 && !open && !closechew) {
+							if (muffin_count == 0 && !action_status.open && !action_status.closechew) {
 
 								var the_div = document.getElementById("derpy");
 								animate(the_div, frames.open);
 					
-								clear();
-								open = true;
+								clear_action_status();
+								action_status.open = true;
 							}
 						},
 						close: function() {
-							if (muffin_count == 0 && open && !closechew) {
+							if (muffin_count == 0 && action_status.open && !action_status.closechew) {
 					
 								var the_div = document.getElementById("derpy");
 								animate(the_div, frames.close);
 					
-								clear();
-								closed = true;
+								clear_action_status();
+								action_status.close = true;
 							}
 						},
 						closechew: function() {
-							if (!idle) {
+							if (!action_status.idle) {
 					
 								var the_div = document.getElementById("derpy");
 								animate(the_div, frames.closechew);
 					
-								clear();
-								closechew = true;
+								clear_action_status();
+								action_status.closechew = true;
 							}
 						},
 						idle: function() {
 							if (basket_hover) {
 								actions.open();
-							} else if (!open) {
+							} else if (!action_status.open) {
 				
 								var the_div = document.getElementById("derpy");
 								animate(the_div, frames.idle);
 				
-								clear();
-								idle = true;
+								clear_action_status();
+								action_status.idle = true;
 							}
 						},
 						praise: function() {
-							if (!open) {
+							if (!action_status.open) {
 				
 								var the_div = document.getElementById("derpy");
 								animate(the_div, frames.praise);
 				
-								clear();
-								praise = true;
+								clear_action_status();
+								action_status.praise = true;
 							}
+						}
+					}
+					
+					var action_status = {
+						open: false,
+						close: false,
+						closechew: false,
+						idle: false,
+						praise: false
+					};
+					
+					function clear_action_status() {
+						action_status = {
+							open: false,
+							close: false,
+							closechew: false,
+							idle: false,
+							praise: false
 						}
 					}
 					
@@ -426,31 +444,7 @@
 						nextframe(the_div, 0, frame_descriptor);
 					}
 			
-					function newmuffin() {
-						muffin_img = document.createElement("div");
-						muffin_img.className = "muffin";
-						return muffin_img;
-					}
-			
 					var muffin_count = 0;
-			
-					var open = false;
-					var closed = false;
-					var closechew = false;
-					var idle = false;
-					var praise = false;
-			
-					var clear = function() {
-						open = false;
-						closed = false;
-						closechew = false;
-						idle = false;
-						praise = false;
-					}
-			
-					var busy = function() {
-						return (open || closed || closechew || praise);
-					}
 					
 					/**
 					 * @constructor
@@ -464,7 +458,8 @@
 				
 						muffin_count += 1;
 				
-						this.div = newmuffin();
+						this.div = document.createElement("div");
+						this.div.className = "muffin";
 						this.div.style.left = pageContainer.scrollWidth / 2 - 50 + "px";
 						this.div.style.top = "140px";
 						document.getElementById("theBody").appendChild(this.div);
@@ -507,7 +502,7 @@
 					
 							// The muffin bounces
 							if (self.position > pageContainer.clientHeight - 500) {
-								if (closechew) {
+								if (action_status.closechew) {
 									self.position = pageContainer.clientHeight - 500;
 									self.speed = -self.speed/1.5;
 							
