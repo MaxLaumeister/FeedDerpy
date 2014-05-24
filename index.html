@@ -513,7 +513,7 @@
 				
 						// Set the cookie
 						var data = "0,0";
-						set_cookie("feedDerpyComCounts", data, 0, "feedderpy.com");
+						set_cookie("feedDerpyComCounts", data, 0, window.location.host);
 					}
 					
 					// Utility functions
@@ -527,7 +527,7 @@
 				
 						// Set the cookie
 						var data = muffins_eaten + "," + muffins_wasted;
-						set_cookie("feedDerpyComCounts", data, 1825, "feedderpy.com");
+						set_cookie("feedDerpyComCounts", data, 1825, window.location.host);
 					}
 					
 					function set_cookie(cookie_name, cookie_value,
@@ -548,15 +548,6 @@
 						return '';
 					}
 					
-					// Get cookie
-					var cookie_value = get_cookie("feedDerpyComCounts");
-					if (cookie_value !== "") {
-						var partsOfStr = cookie_value.split(',');
-						muffins_eaten = parseInt(partsOfStr[0], 10);
-						muffins_wasted = parseInt(partsOfStr[1], 10);
-						updateMuffinCount();
-					}
-					
 					// Cache dom elements
 					
 					var dom = {};
@@ -574,6 +565,15 @@
 					dom.thanksinner = document.getElementById("thanksinner");
 					dom.pagecontainer = document.getElementById("pagecontainer");
 					dom.clicktofeed = document.getElementById("clicktofeed");
+					
+					// Get cookie
+					var cookie_value = get_cookie("feedDerpyComCounts");
+					if (cookie_value !== "") {
+						var partsOfStr = cookie_value.split(',');
+						muffins_eaten = parseInt(partsOfStr[0], 10);
+						muffins_wasted = parseInt(partsOfStr[1], 10);
+						updateMuffinCount();
+					}
 					
 					// Tie external functions into dom
 					/*jshint nonew: false */ // This is ok, because the Muffin ties itself into the dom
