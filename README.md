@@ -3,6 +3,8 @@ Feed Derpy
 
 A small web demo featuring CSS sprite sheet animation, hosted at [FeedDerpy.com](http://feedderpy.com).
 
+![Screenshot](../screenshots/screenshot1.png?raw=true "Optional Title")
+
 ### License ###
 
 If you distribute this project in part or in full, please attribute with a link to [its GitHub page](https://github.com/MaxLaumeister/FeedDerpy). This software is available under The MIT License, reproduced below.
