@@ -2,7 +2,7 @@
 	<html lang="en">
 		<head>
 			<meta charset="utf-8" />
-			<title>FeedDerpy.com | Feed Derpy Hooves Pony</title>
+			<title>Feed Derpy | Feed Derpy Hooves Pony</title>
 			<meta name="description" content="Derpy Hooves is hungry for muffins! Click the muffin basket to feed her!">
 			<meta name="keywords" content="Derpy Hooves, Feed Derpy, My Little Pony, MLP, Muffin">
 			<meta name="author" content="Maximillian Laumeister">
@@ -109,7 +109,7 @@
 					margin-left: auto;
 					margin-right: auto;
 					height: 50px;
-					width: 347px;
+					width: 247px;
 					background-image: url('logo.png');
 				}
 				
@@ -125,16 +125,6 @@
 					top: 40px;
 					margin-left: auto;
 					margin-right: auto;
-				}
-				
-				#adsense {
-					position: absolute;
-					width: 234px;
-					height: 60px;
-					left: 20px;
-					bottom: 0;
-					margin-bottom: 20px;
-					z-index: 6;
 				}
 				
 				#noscript {
@@ -256,7 +246,7 @@
 					border-style:solid;
 					border-color:#078500 transparent;
 					/* reduce the damage in FF3.0 */
-					display:block; 
+					display:block;
 					width:0;
 				}
 				.triangle-isosceles.top:after {
@@ -577,7 +567,7 @@
 					
 					// Tie external functions into dom
 					/*jshint nonew: false */ // This is ok, because the Muffin ties itself into the dom
-					dom.muffinbutton.onclick = function(){new Muffin();}; 
+					dom.muffinbutton.onclick = function(){new Muffin();};
 					dom.muffinbutton.onmouseover = on_mouseover;
 					dom.muffinbutton.onmouseout = on_mouseout;
 					dom.resetbutton.onclick = resetMuffinCount;
@@ -626,42 +616,8 @@
 							<span id="resetbutton" class="pseudolink" style="font-size: 80%;">Reset</span>
 						</div>
 					</div>
-					<div id="adsense">
-						<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-						<ins class="adsbygoogle"
-							 style="display:inline-block;width:234px;height:60px"
-							 data-ad-client="ca-pub-0997103794735619"
-							 data-ad-slot="7606234438"></ins>
-						<script>
-						(adsbygoogle = window.adsbygoogle || []).push({});
-						</script>
-					</div>
 					<div id="footerinner">
 						Site by <a href="https://www.maxlaumeister.com/">Maximillian Laumeister</a> &bull; <a href="https://github.com/MaxLaumeister/FeedDerpy">View on GitHub</a>
-						<br />
-						Paypal: 
-						<form style="position: relative; display: inline; width: 92px; height: 26px; top: 8px;"  action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-							<input type="hidden" name="cmd" value="_s-xclick">
-							<input type="hidden" name="hosted_button_id" value="5UJBBCQ7QV37U">
-							<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-							<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-						</form>
-						Bitcoin: 
-						<script src="coinwidget/coin.js"></script>
-						<script>
-						CoinWidgetCom.go({
-							wallet_address: "1derpMLE7Eh26LTFEA3epp1eAgMUcYj7j"
-							, currency: "bitcoin"
-							, counter: "hide"
-							, alignment: "ac"
-							, qrcode: false
-							, auto_show: false
-							, lbl_button: "Donate"
-							, lbl_address: "My Bitcoin Address:"
-							, lbl_count: "donations"
-							, lbl_amount: "BTC"
-						});
-						</script>
 						<div id="show_thanks"><span class="pseudolink">Special Thanks</span></div>
 					</div>
 				</div>
@@ -673,7 +629,7 @@
 					<p><a href="http://dileak.deviantart.com/art/DR-Derpy-Puppet-Rigs-v1-0-353205343" target="_blank">DILeak</a>, for the Derpy Hooves flash puppet variant.</p>
 					<p><a href="http://nicolasgallagher.com/pure-css-speech-bubbles/" target="_blank">Nicolas Gallagher</a>, for the code for the &ldquo;Click the Basket&rdquo; button.</p>
 					<p><a href="http://birthofthepheonix.deviantart.com/art/Bitter-Sweet-Derpy-355016472" target="_blank">Birthofthephoenix</a> for the Derpy Hooves sitting vector.</p>
-					<p><a href="http://aman692.deviantart.com/art/Derpy-s-Muffin-Vector-295354471" target="_blank">Aman692</a> for the delicious muffin vector.</p>
+					<p>Aman692 for the delicious muffin vector.</p>
 					<p><a href="http://coinwidget.com/" target="_blank">Scotty</a> for the Bitcoin donation widget.</p>
 					<p style="color: yellow;">FeedDerpy.com is not affiliated with Hasbro Inc.</p>
 					<div style="width: 440px; position: absolute; bottom: 0; text-align: center;"><p>(Click outside to close)</p></div>
