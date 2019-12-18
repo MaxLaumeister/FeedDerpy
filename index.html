@@ -6,7 +6,19 @@
 			<meta name="description" content="Derpy Hooves is hungry for muffins! Click the muffin basket to feed her!">
 			<meta name="keywords" content="Derpy Hooves, Feed Derpy, My Little Pony, MLP, Muffin">
 			<meta name="author" content="Maximillian Laumeister">
-            <link rel="canonical" href="https://www.maxlaumeister.com/feed-derpy/" />
+			<link rel="canonical" href="https://www.maxlaumeister.com/feed-derpy/" />
+			<script>
+			// If there is no trailing slash after the path in the url, add it
+			// Workaround for Netlify trailing-slash rewrite issue
+			// https://community.netlify.com/t/bug-in-non-trailing-slash-rewrite/452/23
+			if (!window.location.pathname.endsWith('/') && !window.location.pathname.split("/").pop().includes(".")) {
+				var url = window.location.protocol + '//' +
+					window.location.host +
+					window.location.pathname + '/' +
+					window.location.search;
+					window.history.replaceState(null, document.title, url);
+			}
+			</script>
 			<style>
 				* {
 					font-family:Arial, Helvetica, sans-serif;
